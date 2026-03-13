@@ -372,3 +372,41 @@ src/
 | PDF | `.pdf` |
 | Word Document | `.docx`, `.doc` |
 | Plain Text | `.txt` |
+
+---
+
+## Submission Proof (Screenshots)
+
+Place your screenshots inside the folder `assets/proof` using the filenames below. They will render directly in this README.
+
+### 1) Resume Upload + Step Flow
+
+![Resume Upload and Step Flow](assets/proof/01-resume-upload-and-steps.png)
+
+### 2) Resume ID Always Visible + JD Filled
+
+![Resume ID Visible and JD Entry](assets/proof/02-resume-id-and-jd-entry.png)
+
+### 3) Matching + Quick Data View + API Result
+
+![Matching and Output](assets/proof/03-matching-and-output.png)
+
+### 4) Production Deployment on Vercel
+
+![Vercel Deployment Ready](assets/proof/04-vercel-deployment-ready.png)
+
+---
+
+## Answers / Verification Notes
+
+- **Q: Is Resume ID visible in frontend and always available?**
+  - **Answer:** Yes. The UI shows a persistent **Current Resume ID** banner, and it is stored in browser local storage so it remains visible after refresh.
+
+- **Q: Are upload/save/match actions acknowledged clearly?**
+  - **Answer:** Yes. Success/error/info toast popups are shown for resume upload, JD save, matching, and list loading.
+
+- **Q: Is the app deployed and accessible?**
+  - **Answer:** Yes. Vercel production deployment is active and the app + health endpoint are reachable.
+
+- **Q: Does output include skills analysis and matching score?**
+  - **Answer:** Yes. API result includes `skillsAnalysis` with `presentInResume` and score fields like `matchingScore`, `requiredSkillsScore`, and verdict.
