@@ -109,55 +109,6 @@ The dashboard supports:
 docker-compose up --build
 ```
 
-### Vercel Deployment (Step-by-step)
-
-This project is configured for Vercel serverless deployment via:
-
-- `api/index.js` (serverless entrypoint)
-- `vercel.json` (routing all paths to the Express app)
-
-#### 1) Push code to GitHub
-
-```bash
-git add .
-git commit -m "Prepare Vercel deployment"
-git push
-```
-
-#### 2) Import project in Vercel
-
-1. Open Vercel Dashboard → **Add New Project**
-2. Import your GitHub repository
-3. Framework preset: **Other**
-4. Build command: leave empty (not required)
-5. Output directory: leave empty
-
-#### 3) Configure Environment Variables in Vercel
-
-Set these in **Project Settings → Environment Variables**:
-
-- `NODE_ENV=production`
-- `MAX_FILE_SIZE_MB=10`
-- `DB_PATH=/tmp/data/database.db`
-- `UPLOAD_DIR=/tmp/uploads`
-
-Then redeploy.
-
-#### 4) Verify deployment
-
-Use your Vercel domain:
-
-- `GET https://<your-project>.vercel.app/health`
-- `GET https://<your-project>.vercel.app/`
-
-#### 5) Important production note for Vercel
-
-Vercel serverless filesystem is ephemeral. This means local JSON data in `/tmp` is not durable across cold starts/redeployments.
-
-For persistent production data, replace file-based storage with managed storage (e.g., Postgres, MongoDB, Neon, Supabase, or DynamoDB) and object storage for files.
-
----
-
 ## Postman Collection
 
 Import this file into Postman:
