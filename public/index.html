@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Parsing & Job Matching</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Resume Parsing & Job Matching</h1>
+        <p>Resume screening made simple</p>
+        <ol class="guide">
+          <li>Add a resume</li>
+          <li>Add one or more job descriptions</li>
+          <li>Run matching and review the JSON result</li>
+        </ol>
+      </header>
+
+      <section class="card">
+        <h2>Step 1: Add Resume</h2>
+        <div class="grid two">
+          <form id="resumeTextForm" class="stack">
+            <label for="resumeText">Paste Resume Text</label>
+            <textarea id="resumeText" rows="8" placeholder="Paste resume text..."></textarea>
+            <button type="submit">Save Resume from Text</button>
+          </form>
+
+          <form id="resumeUploadForm" class="stack" enctype="multipart/form-data">
+            <label for="resumeFile">Or Upload Resume File (.pdf/.docx/.txt)</label>
+            <input id="resumeFile" type="file" accept=".pdf,.doc,.docx,.txt" />
+            <button type="submit">Upload Resume File</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Step 2: Add Job Description</h2>
+        <form id="jdForm" class="stack">
+          <div class="grid three">
+            <input id="jdRole" type="text" placeholder="Role (e.g. Backend Developer)" />
+            <input id="jdCompany" type="text" placeholder="Company (e.g. Capgemini)" />
+            <input id="jdJobId" type="text" placeholder="Job ID (e.g. JD001)" />
+          </div>
+          <textarea id="jdText" rows="8" placeholder="Paste job description text..."></textarea>
+          <button type="submit">Save Job Description</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Step 3: Match</h2>
+        <form id="matchForm" class="stack">
+          <input id="resumeId" type="text" placeholder="Resume ID (required)" />
+          <input id="jdId" type="text" placeholder="JD ID / Job ID (optional for one-to-one match)" />
+          <div class="actions">
+            <button type="submit" id="matchAllBtn">Match with All JDs</button>
+            <button type="button" id="matchOneBtn">Match with One JD</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Quick Data View</h2>
+        <div class="actions">
+          <button id="refreshResumes">List Resumes</button>
+          <button id="refreshJds">List JDs</button>
+        </div>
+        <pre id="listOutput" class="output"></pre>
+      </section>
+
+      <section class="card">
+        <h2>Latest API Result</h2>
+        <pre id="resultOutput" class="output large"></pre>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

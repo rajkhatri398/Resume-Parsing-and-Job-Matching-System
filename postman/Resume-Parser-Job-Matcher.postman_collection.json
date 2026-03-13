@@ -1,0 +1,173 @@
+{
+  "info": {
+    "name": "Resume Parser & Job Matcher API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Rule-based Resume Parsing and Job Matching System API collection"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "resumeId", "value": "" },
+    { "key": "jdId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+      }
+    },
+    {
+      "name": "Resumes",
+      "item": [
+        {
+          "name": "Upload Resume File",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "resume", "type": "file", "src": "" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/resumes/upload", "host": ["{{baseUrl}}"], "path": ["api", "resumes", "upload"] }
+          }
+        },
+        {
+          "name": "Parse Resume Text",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"john_doe_resume.txt\",\n  \"text\": \"John Doe\\njohn.doe@example.com\\n+1 555-123-4567\\n\\nSenior software engineer with 6 years of experience in Java, Spring Boot, Python, Docker and Kubernetes.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/resumes/text", "host": ["{{baseUrl}}"], "path": ["api", "resumes", "text"] }
+          }
+        },
+        {
+          "name": "List Resumes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/resumes?limit=20", "host": ["{{baseUrl}}"], "path": ["api", "resumes"], "query": [{ "key": "limit", "value": "20" }] }
+          }
+        },
+        {
+          "name": "Get Resume By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/resumes/{{resumeId}}", "host": ["{{baseUrl}}"], "path": ["api", "resumes", "{{resumeId}}"] }
+          }
+        },
+        {
+          "name": "Delete Resume",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/resumes/{{resumeId}}", "host": ["{{baseUrl}}"], "path": ["api", "resumes", "{{resumeId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Job Descriptions",
+      "item": [
+        {
+          "name": "Create JD",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"JD001\",\n  \"role\": \"Backend Developer\",\n  \"company\": \"Capgemini\",\n  \"text\": \"Should have 7 years of strong hands-on experience with Core Java Spring Boot. Should have 4 years of experience with Angular or React. Hands on experience with MySQL or PostgreSQL, Microservices, Kafka, REST API, Docker and Kubernetes. Good to have Python, Azure, CI/CD. Salary: 61087 - 104364\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/jds", "host": ["{{baseUrl}}"], "path": ["api", "jds"] }
+          }
+        },
+        {
+          "name": "Bulk Create JDs",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobs\": [\n    {\n      \"jobId\": \"JD002\",\n      \"role\": \"Software Engineer\",\n      \"company\": \"Adobe\",\n      \"text\": \"5-7 years experience. Proficient in Python, Java, C++, React, Angular, DevOps and cloud. Salary: $139,000 - $257,550\"\n    }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/jds/bulk", "host": ["{{baseUrl}}"], "path": ["api", "jds", "bulk"] }
+          }
+        },
+        {
+          "name": "List JDs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/jds?limit=20", "host": ["{{baseUrl}}"], "path": ["api", "jds"], "query": [{ "key": "limit", "value": "20" }] }
+          }
+        },
+        {
+          "name": "Get JD By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/jds/{{jdId}}", "host": ["{{baseUrl}}"], "path": ["api", "jds", "{{jdId}}"] }
+          }
+        },
+        {
+          "name": "Delete JD",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/jds/{{jdId}}", "host": ["{{baseUrl}}"], "path": ["api", "jds", "{{jdId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matching",
+      "item": [
+        {
+          "name": "Match Resume vs One JD",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/match/resume/{{resumeId}}/jd/{{jdId}}", "host": ["{{baseUrl}}"], "path": ["api", "match", "resume", "{{resumeId}}", "jd", "{{jdId}}"] }
+          }
+        },
+        {
+          "name": "Match Resume vs All JDs",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/match/resume/{{resumeId}}/all", "host": ["{{baseUrl}}"], "path": ["api", "match", "resume", "{{resumeId}}", "all"] }
+          }
+        },
+        {
+          "name": "Resume Match History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/match/resume/{{resumeId}}/history?limit=20", "host": ["{{baseUrl}}"], "path": ["api", "match", "resume", "{{resumeId}}", "history"], "query": [{ "key": "limit", "value": "20" }] }
+          }
+        },
+        {
+          "name": "Top Candidates for JD",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/match/jd/{{jdId}}/candidates?limit=10", "host": ["{{baseUrl}}"], "path": ["api", "match", "jd", "{{jdId}}", "candidates"], "query": [{ "key": "limit", "value": "10" }] }
+          }
+        }
+      ]
+    }
+  ]
+}
