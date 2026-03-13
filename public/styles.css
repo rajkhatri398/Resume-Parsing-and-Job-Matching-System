@@ -9,6 +9,58 @@ body {
   color: #1f2937;
 }
 
+.toast-container {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(360px, calc(100vw - 24px));
+}
+
+.toast {
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: toast-in 0.2s ease-out;
+}
+
+.toast-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.toast-msg {
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+.toast.success {
+  background: #16a34a;
+}
+
+.toast.error {
+  background: #dc2626;
+}
+
+.toast.info {
+  background: #2563eb;
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .container {
   max-width: 980px;
   margin: 20px auto;
