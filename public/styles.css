@@ -99,6 +99,26 @@ body {
   border: 1px solid #e5e7eb;
 }
 
+.id-banner {
+  border-left: 4px solid #2563eb;
+}
+
+.id-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.id-value {
+  font-family: Consolas, Monaco, monospace;
+  background: #eff6ff;
+  color: #1e3a8a;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #bfdbfe;
+}
+
 .grid {
   display: grid;
   gap: 10px;

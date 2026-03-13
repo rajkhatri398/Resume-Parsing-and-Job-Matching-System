@@ -1,9 +1,30 @@
 const resultOutput = document.getElementById("resultOutput");
 const listOutput = document.getElementById("listOutput");
 const toastContainer = document.getElementById("toastContainer");
+const currentResumeIdEl = document.getElementById("currentResumeId");
+
+const RESUME_ID_KEY = "currentResumeId";
 
 function show(target, data) {
   target.textContent = JSON.stringify(data, null, 2);
+}
+
+function setCurrentResumeId(id) {
+  const cleaned = (id || "").trim();
+  if (!cleaned) return;
+  localStorage.setItem(RESUME_ID_KEY, cleaned);
+  if (currentResumeIdEl) currentResumeIdEl.textContent = cleaned;
+  const resumeInput = document.getElementById("resumeId");
+  if (resumeInput) resumeInput.value = cleaned;
+}
+
+function loadCurrentResumeId() {
+  const stored = localStorage.getItem(RESUME_ID_KEY);
+  if (stored) {
+    if (currentResumeIdEl) currentResumeIdEl.textContent = stored;
+    const resumeInput = document.getElementById("resumeId");
+    if (resumeInput && !resumeInput.value) resumeInput.value = stored;
+  }
 }
 
 function notify(type, title, message, timeout = 3000) {
@@ -31,15 +52,21 @@ async function api(path, options = {}) {
 
 function setLatestIdsFromResult(data) {
   if (data?.id) {
-    const id = data.id;
-    const resumeInput = document.getElementById("resumeId");
-    if (resumeInput && !resumeInput.value) resumeInput.value = id;
+    setCurrentResumeId(data.id);
   }
   if (data?.jobId || data?.id) {
     const jdField = document.getElementById("jdId");
     if (jdField && !jdField.value) jdField.value = data.jobId || data.id;
   }
 }
+
+loadCurrentResumeId();
+
+document.getElementById("resumeId").addEventListener("input", (e) => {
+  const value = e.target.value.trim();
+  if (!value) return;
+  setCurrentResumeId(value);
+});
 
 document.getElementById("resumeTextForm").addEventListener("submit", async (e) => {
   e.preventDefault();
